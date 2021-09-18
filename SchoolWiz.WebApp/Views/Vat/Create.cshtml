@@ -1,0 +1,142 @@
+﻿@model SchoolWiz.WebApp.Models.Vat.VatCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    ViewData["PageName"] = "vat_index";
+    ViewData["Category1"] = "Setup";
+    ViewData["Category2"] = "Vat";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-cogs'></i> Create new Vat</sup>";
+    ViewData["PageDescription"] = "Value added tax will be used for billing purposes.";
+}
+
+@{ ViewBag.Title = "Create";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/formplugins/bootstrap-datepicker/bootstrap-datepicker.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    Value added tax will be used for billing.
+                    <br />
+                    It will be applied to invoices and statements.
+                    <br />
+                    If you do not want to apply a date range to the vat and have it be active indefinitely, simply omit the Valid From and Valid To dates.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Create new Vat</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form method="post" enctype="multipart/form-data" asp-controller="Vat" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label asp-for="Value" class="form-text"></label>
+                                <input class="form-control" asp-for="Value" />
+                                <span asp-validation-for="Value" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="ValidFrom" class="form-text"></label>
+                                <div class="input-group">
+                                    <input asp-for="ValidFrom" type="text" class="form-control" id="validFromDatePicker">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text fs-xl">
+                                            <i class="@(Settings.Theme.IconPrefix) fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="ValidTo" class="form-text"></label>
+                                <div class="input-group">
+                                    <input asp-for="ValidTo" type="text" class="form-control" id="validToDatePicker">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text fs-xl">
+                                            <i class="@(Settings.Theme.IconPrefix) fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-row">
+                            <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                <input type="checkbox" class="custom-control-input" asp-for="Inactive">
+                                <label class="custom-control-label" asp-for="Inactive"></label>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@(Settings.Theme.IconPrefix) fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" asp-controller="Vat" asp-action="Index"><i class="@(Settings.Theme.IconPrefix) fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script>
+		// Class definition
+		var controls = {
+			leftArrow: '<i class="@(Settings.Theme.IconPrefix) fa-angle-left" style="font-size: 1.25rem"></i>',
+			rightArrow: '<i class="@(Settings.Theme.IconPrefix) fa-angle-right" style="font-size: 1.25rem"></i>'
+		}
+		var runDatePicker = function () {
+            $('#validFromDatePicker').datepicker({
+				todayBtn: "linked",
+				clearBtn: true,
+				todayHighlight: true,
+				templates: controls
+            });
+
+            $('#validToDatePicker').datepicker({
+                todayBtn: "linked",
+                clearBtn: true,
+                todayHighlight: true,
+                templates: controls
+            });
+        }
+
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+			runDatePicker();
+		});
+    </script>
+}

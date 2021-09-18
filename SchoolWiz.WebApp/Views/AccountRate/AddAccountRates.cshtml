@@ -1,0 +1,105 @@
+﻿@model SchoolWiz.Common.Models.AccountRate.AccountEditAccountRateViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["PageName"] = "account_index";
+    ViewData["Category1"] = "Setup";
+    ViewData["Category2"] = "Account Rates";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-yable'></i> Account Rate Details</sup>";
+}
+
+@{ ViewBag.Title = "Edit";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/formplugins/select2/select2.bundle.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    View account details such as the account balances.
+                    <br />
+                    Your can change the account status and account type.
+                    <br />
+                    You can also view the account rates applied to the account. Ad add or remove them from here.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Edit the selected Account Rates</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form method="post" enctype="multipart/form-data" asp-controller="AccountRate" asp-action="AddAccountRates" asp-route-returnUrl="@Url.Action("Edit", "Account", new {id = Model.AccountId})">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="AccountId" hidden />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="AccountNumber" class="form-text font-weight-bold"></label>
+                                <input class="form-control" asp-for="AccountNumber" readonly="readonly" />
+                                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="AccountName" class="form-text font-weight-bold"></label>
+                                <input class="form-control" asp-for="AccountName" readonly="readonly" />
+                                <span asp-validation-for="AccountName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label asp-for="RateIds" class="form-text"></label>
+                                <select class="select2 form-control" multiple="multiple" id="accountRateRateList" asp-for="RateIds" asp-items="@Model.Rates"></select>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@(Settings.Theme.IconPrefix) fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" href="@ViewBag.returnUrl"><i class="fal fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/formplugins/select2/select2.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            $(function () {
+                $("#accountRateRateList").select2({
+                    placeholder: "Select Rates"
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,178 @@
+﻿@model SchoolWiz.WebApp.Models.School.SchoolIndexViewModel
+
+@{
+    ViewData["Title"] = "School Details";
+    ViewData["PageName"] = "school_maintenance";
+    ViewData["Category1"] = "";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-cogs'></i> Maintain School Information</sup>";
+    ViewData["PageDescription"] = "Capture any information regarding the school.";
+}
+
+@{ ViewBag.Title = "School Details";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    The information maintained on this page will be used to identify the school.
+                    <br />
+                    It will be used in places like invoice and statements.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>School Details</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form method="post" enctype="multipart/form-data" asp-controller="School" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label asp-for="Name" class="font-weight-bold form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input class="form-control" asp-for="Name" placeholder="School Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="ImageUrl" class="font-weight-normal form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="custom-file">
+                                    <input asp-for="ImageUrl" type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class=" form-group col-md-2">
+                                <label asp-for="RegistrationNo" class="font-weight-normal form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input class="form-control" asp-for="RegistrationNo" />
+                                <span asp-validation-for="RegistrationNo" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class=" form-group col-md-2">
+                                <label asp-for="VatNo" class="font-weight-normal form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input class="form-control" asp-for="VatNo" />
+                                <span asp-validation-for="VatNo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class=" form-group col-md-2">
+                                <label asp-for="ContactPerson" class="form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input class="form-control" asp-for="ContactPerson" />
+                                <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class=" form-group col-md-2">
+                                <label asp-for="PhoneNumber" class="form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input class="form-control" asp-for="PhoneNumber" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label asp-for="Email" class="form-text"></label>
+                            </div>
+                            <div class="form-group col-md-10">
+                                <input class="form-control" asp-for="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label asp-for="CreatedBy" class="form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input class="form-control" asp-for="CreatedBy" readonly />
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="CreatedDate" class="form-text"></label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input class="form-control" asp-for="CreatedDate" readonly />
+                            </div>
+                        </div>
+                        @if (Model.ModifiedById != null)
+                        {
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="ModifiedBy" class="form-text"></label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input class="form-control" asp-for="ModifiedBy" readonly />
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="ModifiedDate" class="form-text"></label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input class="form-control" asp-for="ModifiedDate" readonly />
+                                </div>
+                            </div>
+                        }
+                        <div class="form-row">
+                            <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                <input type="checkbox" class="custom-control-input" asp-for="IsDeleted">
+                                <label class="custom-control-label" asp-for="IsDeleted"></label>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@Settings.Theme.IconPrefix fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" asp-controller="Home" asp-action="Index"><i class="@Settings.Theme.IconPrefix fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+        });
+    </script>
+}

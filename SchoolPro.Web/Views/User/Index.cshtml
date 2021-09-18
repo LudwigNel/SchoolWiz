@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SchoolWiz.Web.Models.User.UserIndexViewModel>
+
+@{
+    ViewBag.Title = "User List";
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User List</li>
+                    </ol>
+                </nav><br /><br />
+                <div class="row">
+                    <div class="col-md-12 table-responsive-md">
+                        <table id="usersTable" class="table table-striped">
+                            <thead>
+                                <tr class="d-flex">
+                                    <th class="col-2">Full Name</th>
+                                    <th class="col-2">User Name</th>
+                                    <th class="col-2">Email</th>
+                                    <th class="col-2">Phone Number</th>
+                                    <th class="col-2">Identity Number</th>
+                                    <th class="col-1 align-content-center">Inactive</th>
+                                    <th class="text-warning col-1">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                    <tr class="d-flex">
+                                        <td class="col-2">
+                                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">
+                                                @user.FullName
+                                            </a>
+                                        </td>
+                                        <td class="col-2">
+                                            @user.UserName
+                                        </td>
+                                        <td class="col-2">
+                                            @user.Email
+                                        </td>
+                                        <td class="col-2">
+                                            @user.PhoneNumber
+                                        </td>
+                                        <td class="col-2">
+                                            @user.IdentityNumber
+                                        </td>
+                                        <td class="col-1 align-content-center" style="text-align: center;">
+                                            @user.InActive
+                                        </td>
+                                        <td class="col-1">
+                                            <a class="text-primary" asp-controller="Role" asp-action="Assign" asp-route-id="@user.Id" style="margin-right: 0.7em;">
+                                                <i class="fas fa-user-tag"></i> Manage Roles
+                                            </a>
+                                            <a class="text-primary" asp-action="Edit" asp-route-id="@user.Id" style="margin-right: 0.7em;">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a class="text-danger" asp-action="Delete" asp-route-id="@user.Id" style="margin-right: 0.7em;">
+                                                <i class="far fa-trash-alt"></i> Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

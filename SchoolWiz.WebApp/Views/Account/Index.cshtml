@@ -1,0 +1,133 @@
+﻿@model IEnumerable<SchoolWiz.WebApp.Models.Account.AccountIndexViewmodel>
+
+@{
+    ViewData["Title"] = "Accounts";
+    ViewData["PageName"] = "account_index";
+    ViewData["Category1"] = "Billing";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-table'></i> Account List</sup>";
+    ViewData["PageDescription"] = "View Billing Accounts.";
+}
+
+@{ ViewBag.Title = "Accounts";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2></h2>
+                <div class="panel-toolbar">
+
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div clss="col-md-12 table-responsive-md">
+                        <table id="accountIndexTable" class="table table-bordered table-hover table-striped w-100">
+                            <thead>
+                                <tr>
+                                    <th>Account Number</th>
+                                    <th>Account Name</th>
+                                    <th>Current Period</th>
+                                    <th>Current</th>
+                                    <th>30 Days</th>
+                                    <th>60 Days</th>
+                                    <th>90 Days</th>
+                                    <th>120 Days</th>
+                                    <th class="text-warning">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var account in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-controller="Account" asp-action="Edit" asp-route-id="@account.Id" asp-route-returnUrl="@Url.Action("Index", "Account")">
+                                                @account.AccountNumber
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @account.AccountName
+                                        </td>
+                                        <td>
+                                            @account.CurrentPeriod
+                                        </td>
+                                        <td>
+                                            @account.Current
+                                        </td>
+                                        <td>
+                                            @account.ThirtyDays
+                                        </td>
+                                        <td>
+                                            @account.SixtyDays
+                                        </td>
+                                        <td>
+                                            @account.NinetyDays
+                                        </td>
+                                        <td>
+                                            @account.HundredTwentyDays
+                                        </td>
+                                        <td>
+                                            <a class="text-primary" asp-controller="Account" asp-action="Edit" asp-route-id="@account.Id" asp-route-returnUrl="@Url.Action("Index", "Account")">
+                                                <i class="@(Settings.Theme.IconPrefix) fa-edit"></i> Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="account-rate-delete-dialog" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Confirm Delete
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="@(Settings.Theme.IconPrefix) fa-times"></i></span>
+                </button>
+            </div>
+            <form id="delete-account-rate-form" asp-controller="AccountRate" asp-action="Delete" data-ajax="true" data-ajax-method="POST" data-ajax-mode="REPLACE-WITH" data-ajax-update="#target">
+                <div id="account-rate-delete-modal-body" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            siteJs.initializeDataTable('#accountIndexTable');
+        });
+    </script>
+}

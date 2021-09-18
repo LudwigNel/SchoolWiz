@@ -1,0 +1,67 @@
+﻿<aside class="page-sidebar">
+    <partial name="_Logo" />
+    <nav id="js-primary-nav" class="primary-nav" role="navigation">
+        <partial name="_NavFilter" />
+        <partial name="_NavInfoCard" />
+        <ul id="js-nav-menu" class="nav-menu js-nav-built">
+            <li class="">
+                <a href="#" title="Master Data" data-filter-tags="master data" class=" waves-effect waves-themed" aria-expanded="false">
+                    <i class="fal fa-server"></i>
+                    <span class="nav-link-text" data-i18n="nav.application_intel">Master Data</span>
+                    <b class="collapse-sign"><em class="fal fa-angle-down"></em></b>
+                </a>
+                <ul class="" style="display: none;">
+                    <li class="">
+                        <a asp-controller="AccountStatus" asp-action="Index" class="waves-effect waves-themed" data-filter-tags="master data account status">
+                            <i class="fas fa-battery-half" style="margin-right: 0.7em;"></i>
+                            <p>
+                                Account Status
+                            </p>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a asp-controller="AccountType" asp-action="Index" class="nav-link text-light" data-filter-tags="master data account type">
+                            <i class="fas fa-user-circle" style="margin-right: 0.7em;"></i>
+                            <p>
+                                Account Type
+                            </p>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a asp-controller="AddressType" asp-action="Index" class="nav-link text-light" data-filter-tags="master data address type">
+                            <i class="fas fa-address-card" style="margin-right: 0.7em;"></i>
+                            <p>
+                                Address Type
+                            </p>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a asp-controller="City" asp-action="Index" class="nav-link text-light" data-filter-tags="master data city cities">
+                            <i class="fas fa-city" style="margin-right: 0.7em;"></i>
+                            <p>
+                                Cities
+                            </p>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a asp-controller="Country" asp-action="Index" class="nav-link text-light" data-filter-tags="master data country countries">
+                            <i class="fas fa-globe" style="margin-right: 0.7em;"></i>
+                            <p>
+                                Countries
+                            </p>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a asp-controller="Province" asp-action="Index" class="nav-link text-light" data-filter-tags="master data province provinces">
+                            <i class="fas fa-flag" style="margin-right: 0.7em;"></i>
+                            <p>
+                                Provinces
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <partial name="_NavFilterMsg" />
+    </nav>
+</aside>

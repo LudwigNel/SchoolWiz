@@ -1,0 +1,323 @@
+﻿@model SchoolWiz.Common.Models.Guardian.GuardianEditViewmodel
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["PageName"] = "guardian_index";
+    ViewData["Category1"] = "General";
+    ViewData["Category2"] = "Guardians";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-user-shield'></i> Edit the Guardian</sup>";
+    ViewData["PageDescription"] = "Guardians are responsible for looking after a particular student.";
+    var returnUrl = @Context.Request.Query["returnurl"];
+}
+
+@{ ViewBag.Title = "Edit";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-brands.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/formplugins/select2/select2.bundle.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Edit the selected Guardian</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="panel-tag">
+                        <p>
+                            Guardian are responsible for the care of students staying with them.
+                            <br />
+                            They are the people to contact for emergencies, accounts or any other correspondence.
+                        </p>
+                    </div>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#guardian_tab" role="tab">Guardian</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#address_tab" role="tab">Address</a></li>
+                    </ul>
+
+                    <form method="post" enctype="multipart/form-data" asp-controller="Guardian" asp-action="Edit" asp-route-returnurl="@returnUrl">
+                        <div class="tab-content p-3">
+                            <div class="tab-pane fade show active" id="guardian_tab" role="tabpanel">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="Id" hidden />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="FirstName" class="form-text"></label>
+                                        <input class="form-control" asp-for="FirstName" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="MiddleName" class="form-text"></label>
+                                        <input class="form-control" asp-for="MiddleName" />
+                                        <span asp-validation-for="MiddleName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="LastName" class="form-text"></label>
+                                        <input class="form-control" asp-for="LastName" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="IdentityNumber" class="form-text"></label>
+                                        <input class="form-control" asp-for="IdentityNumber" />
+                                        <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="GuardianTypeId" class="form-text"></label>
+                                        <select id="guardianEditGuardianTypeList" class="select2 form-control w-100" asp-for="GuardianTypeId" asp-items="@Model.GuardianTypes">
+                                            <option value="@Guid.Empty">-- Select a Guardian Type --</option>
+                                        </select>
+                                        <span asp-validation-for="GuardianTypeId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="HomePhoneNumber" class="form-text"></label>
+                                        <input class="form-control" asp-for="HomePhoneNumber" />
+                                        <span asp-validation-for="HomePhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="WorkPhoneNumber" class="form-text"></label>
+                                        <input class="form-control" asp-for="WorkPhoneNumber" />
+                                        <span asp-validation-for="WorkPhoneNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="MobileNumber" class="form-text"></label>
+                                        <input class="form-control" asp-for="MobileNumber" />
+                                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="Email" class="form-text"></label>
+                                        <input class="form-control" asp-for="Email" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="Students" class="form-text font-weight-bold"></label>
+                                        <select class="select2 form-control" multiple="multiple" id="editGuardianStudentList" asp-for="Students" asp-items="@Model.StudentList"></select>
+                                        <span asp-validation-for="Students" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CreatedBy" class=" font-weight-normal form-text"></label>
+                                        <input class="form-control" asp-for="CreatedBy" readonly />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CreatedDate" class="font-weight-normal form-text"></label>
+                                        <input class="form-control" asp-for="CreatedDate" readonly />
+                                    </div>
+                                </div>
+                                @if (Model.ModifiedById != null)
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="ModifiedBy" class="font-weight-normal form-text"></label>
+                                            <input class="form-control" asp-for="ModifiedBy" readonly />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="ModifiedDate" class="font-weight-normal form-text"></label>
+                                            <input class="form-control" asp-for="ModifiedDate" readonly />
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-row">
+                                    <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                        <input type="checkbox" class="custom-control-input" asp-for="MainGuardian">
+                                        <label class="custom-control-label" asp-for="MainGuardian"></label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                        <input type="checkbox" class="custom-control-input" asp-for="Inactive">
+                                        <label class="custom-control-label" asp-for="Inactive"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="address_tab" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-hdr">
+                                                <h2>Physical Address</h2>
+                                            </div>
+                                            <div class="panel-container show">
+                                                <div class="panel-content">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PhysicalAddress.UnitNumber" class="form-text"></label>
+                                                            <input class="form-control" asp-for="PhysicalAddress.UnitNumber" />
+                                                            <span asp-validation-for="PhysicalAddress.UnitNumber" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PhysicalAddress.ComplexName" class="form-text"></label>
+                                                            <input class="form-control" asp-for="PhysicalAddress.ComplexName" />
+                                                            <span asp-validation-for="PhysicalAddress.ComplexName" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PhysicalAddress.StreetAddress" class="form-text font-weight-bold"></label>
+                                                            <input class="form-control" asp-for="PhysicalAddress.StreetAddress" />
+                                                            <span asp-validation-for="PhysicalAddress.StreetAddress" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PhysicalAddress.Suburb" class="form-text"></label>
+                                                            <input class="form-control" asp-for="PhysicalAddress.Suburb" />
+                                                            <span asp-validation-for="PhysicalAddress.Suburb" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PhysicalAddress.CityId" class="form-text font-weight-bold"></label>
+                                                            <select id="guardianEditPostalCityList" class="select2 form-control w-100" asp-for="PhysicalAddress.CityId" asp-items="@Model.PhysicalAddress.Cities" onchange="siteJs.getCityDetails('@Url.Action("GetCity", "City")', '#guardianEditPostalCityList', '#guardianEditPostalAddressProvince', '#guardianEditPostalAddressCountry');">
+                                                                <option value="@Guid.Empty">-- Select a City --</option>
+                                                            </select>
+                                                            <span asp-validation-for="PhysicalAddress.CityId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PhysicalAddress.Province" class="form-text"></label>
+                                                            <input id="guardianEditPostalAddressProvince" class="form-control" asp-for="PhysicalAddress.Province" readonly="readonly" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PhysicalAddress.Country" class="form-text"></label>
+                                                            <input id="guardianEditPostalAddressCountry" class="form-control" asp-for="PhysicalAddress.Country" readonly="readonly" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="PhysicalAddress.PostalCode" class="form-text font-weight-bold"></label>
+                                                            <input class="form-control" asp-for="PhysicalAddress.PostalCode" />
+                                                            <span asp-validation-for="PhysicalAddress.PostalCode" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-hdr">
+                                                <h2>Postal Address</h2>
+                                            </div>
+                                            <div class="panel-container show">
+                                                <div class="panel-content">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PostalAddress.UnitNumber" class="form-text"></label>
+                                                            <input class="form-control" asp-for="PostalAddress.UnitNumber" />
+                                                            <span asp-validation-for="PostalAddress.UnitNumber" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PostalAddress.ComplexName" class="form-text"></label>
+                                                            <input class="form-control" asp-for="PostalAddress.ComplexName" />
+                                                            <span asp-validation-for="PostalAddress.ComplexName" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PostalAddress.StreetAddress" class="form-text font-weight-bold"></label>
+                                                            <input class="form-control" asp-for="PostalAddress.StreetAddress" />
+                                                            <span asp-validation-for="PostalAddress.StreetAddress" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PostalAddress.Suburb" class="form-text"></label>
+                                                            <input id="guardianEditPhysicalAddressSuburb" class="form-control" asp-for="PostalAddress.Suburb" />
+                                                            <span asp-validation-for="PostalAddress.Suburb" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PostalAddress.CityId" class="form-text font-weight-bold"></label>
+                                                            <select id="guardianEditPhysicalCityList" class="select2 form-control w-100" asp-for="PostalAddress.CityId" asp-items="@Model.PostalAddress.Cities" onchange="siteJs.getCityDetails('@Url.Action("GetCity", "City")', '#guardianEditPhysicalCityList', '#guardianEditPhysicalAddressProvince', '#guardianEditPhysicalAddressCountry');">
+                                                                <option value="@Guid.Empty">-- Select a City --</option>
+                                                            </select>
+                                                            <span asp-validation-for="PostalAddress.CityId" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PostalAddress.Province" class="form-text"></label>
+                                                            <input id="guardianEditPhysicalAddressProvince" class="form-control" asp-for="PostalAddress.Province" readonly="readonly" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label asp-for="PostalAddress.Country" class="form-text"></label>
+                                                            <input id="guardianEditPhysicalAddressCountry" class="form-control" asp-for="PostalAddress.Country" readonly="readonly" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="PostalAddress.PostalCode" class="form-text font-weight-bold"></label>
+                                                            <input class="form-control" asp-for="PostalAddress.PostalCode" />
+                                                            <span asp-validation-for="PostalAddress.PostalCode" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="fal fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" href="@ViewBag.returnUrl"><i class="fal fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/formplugins/select2/select2.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            $('#guardianEditGuardianTypeList').select2();;
+            $('#guardianEditPostalCityList').select2();;
+            $('#guardianEditPhysicalCityList').select2();;
+
+            $(function () {
+                $("#editGuardianStudentList").select2({
+                    placeholder: "Select Student"
+                });
+            });
+
+        });
+    </script>
+}

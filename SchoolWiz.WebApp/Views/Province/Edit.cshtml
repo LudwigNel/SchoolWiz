@@ -1,0 +1,121 @@
+﻿@model SchoolWiz.WebApp.Models.Province.ProvinceEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["PageName"] = "province_index";
+    ViewData["Category1"] = "Setup";
+    ViewData["Category2"] = "Provinces";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-cogs'></i> Edit the Province</sup>";
+    ViewData["PageDescription"] = "Provinces are used in creating Addresses.";
+}
+
+@{ ViewBag.Title = "Edit";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-brands.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/formplugins/select2/select2.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    A province is used when creating an address.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Edit the selected Province</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form method="post" enctype="multipart/form-data" asp-controller="Province" asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="Id" hidden />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Name" class="form-text"></label>
+                                <input class="form-control" asp-for="Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="CountryId" class="form-text"></label>
+                                <select id="privinceCountrySelect" class="select2 form-control w-100" data-width="100%" asp-for="CountryId" asp-items="@Model.Countries"></select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="CreatedBy" class="form-text"></label>
+                                <input class="form-control" asp-for="CreatedBy" readonly />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="CreatedDate" class="form-text"></label>
+                                <input class="form-control" asp-for="CreatedDate" readonly />
+                            </div>
+                        </div>
+                        @if (Model.ModifiedById != null)
+                        {
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ModifiedBy" class="form-text"></label>
+                                    <input class="form-control" asp-for="ModifiedBy" readonly />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ModifiedDate" class="form-text"></label>
+                                    <input class="form-control" asp-for="ModifiedDate" readonly />
+                                </div>
+                            </div>
+                        }
+                        <div class="form-row">
+                            <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                <input type="checkbox" class="custom-control-input" asp-for="Inactive">
+                                <label class="custom-control-label" asp-for="Inactive"></label>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@(Settings.Theme.IconPrefix) fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" asp-controller="Province" asp-action="Index"><i class="@(Settings.Theme.IconPrefix) fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/formplugins/select2/select2.bundle.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            $('#privinceCountrySelect').select2();
+        });
+    </script>
+}

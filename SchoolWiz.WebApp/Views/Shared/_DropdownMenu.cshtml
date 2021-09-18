@@ -1,0 +1,9 @@
+@using System.Security.Claims
+<a class="dropdown-item fw-500 pt-3 pb-3" asp-controller="User" asp-action="Edit" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+    <span data-i18n="drpdwn.page-logout">Profile</span> 
+    <i class="@(Settings.Theme.IconPrefix) fa-id-badge float-right"></i>
+</a>
+<a class="dropdown-item fw-500 pt-3 pb-3" asp-area="Identity" asp-page="/account/logout">
+	<span data-i18n="drpdwn.page-logout">Logout</span> 
+    <i class="@(Settings.Theme.IconPrefix) fa-sign-out-alt float-right"></i>
+</a>

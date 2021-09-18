@@ -1,0 +1,105 @@
+﻿@using SchoolWiz.Entity
+@model IEnumerable<SchoolWiz.WebApp.Models.Student.StudentIndexViewModel>
+@{
+    ViewData["Title"] = "Students";
+    ViewData["PageName"] = "student_index";
+    ViewData["Category1"] = "General";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-user-graduate'></i> Student List</sup>";
+}
+@{
+    ViewBag.Title = "Students";
+}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>View Students</h2>
+                <div class="panel-toolbar">
+                    <a class="btn btn-sm btn-outline-success float-md-right" asp-controller="StudentRegistration" asp-action="Index" asp-route-returnUrl="@Url.Action("Index", "Student")"> Register New Student</a>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="col-md-12 table-responsive-md">
+                        <table id="studentIndexTable" class="table table-bordered table-hover table-striped w-100">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Identity Number</th>
+                                    <th>Date of Birth</th>
+                                    <th>Age</th>
+                                    <th>Mobile Number</th>
+                                    <th>Email</th>
+                                    <th>InActive</th>
+                                    <th class="text-warning">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var student in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">
+                                                @student.Name
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @student.IdentityNumber
+                                        </td>
+                                        <td>
+                                            @student.DateOfBirth.ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td>
+                                            @student.Age
+                                        </td>
+                                        <td>
+                                            @student.MobileNumber
+                                        </td>
+                                        <td>
+                                            @student.Email
+                                        </td>
+                                        <td>
+                                            @student.InActive
+                                        </td>
+                                        <td>
+                                            <a class="text-primary" asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">
+                                                <i class="@(Settings.Theme.IconPrefix) fa-edit"></i> Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            siteJs.initializeDataTable('#studentIndexTable');
+        });
+    </script>
+}

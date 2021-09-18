@@ -1,0 +1,181 @@
+﻿@model SchoolWiz.WebApp.Models.Invoice.InvoiceIndexViewModel
+
+@{
+    ViewData["Title"] = "Invoice Run";
+    ViewData["PageName"] = "invoice_index";
+    ViewData["Category1"] = "Billing";
+    ViewData["Category2"] = "Invoicing";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-cogs'></i> Generate Invoices</sup>";
+}
+
+@{ ViewBag.Title = "Invoice Run";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    Select "Generate Invoices" to create invoices for the current period
+                    <br />
+                    The period is shown and is represented in the format: "MonthYear"
+                    <br />
+                    Once you are satisfied with the resulting invoice in the table you can complete the invoice run by selecting "Complete"
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="panel">
+                <div class="panel-hdr">
+
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Invoice" asp-action="GenerateInvoices">
+                            <input asp-for="CreatedById" hidden />
+                            <iiv class="form-row">
+                                <div class="form-group col-md-1">
+                                    <label asp-for="Period" class="form-control-label"></label>
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <input asp-for="Period" class="form-control" readonly="readonly"/>
+                                </div>
+                                @if (Model.Complete)
+                                {
+                                    <div class="form-group col-md-1">
+                                        <label asp-for="CompletedBy" class="form-control-label"></label>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <input asp-for="CompletedBy" class="form-control" readonly="readonly"/>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label asp-for="CompletedDate" class="form-control-label"></label>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <input asp-for="CompletedDate" class="form-control" readonly="readonly"/>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group col-md-10">
+                                        <button type="submit" class="btn btn-primary float-right"><i class="@(Settings.Theme.IconPrefix) fa-play-circle"></i> Generate Invoices</button>
+                                    </div>
+                                }
+                            </iiv>
+                            <div class="form-row">
+                                <div class="col-md-12 table-responsive-md">
+                                    <div class="panel">
+                                        <div class="panel-hdr">
+                                            <h2></h2>
+                                            <div class="panel-toolbar">
+                                                @if (Model.Invoices.Any() && (bool)ViewBag.DisplayCompleteButton)
+                                                {
+                                                    <button class=" btn btn-success float-right" onclick="siteJs.completeInvoiceRun('@Model.Period')"><i class="@(Settings.Theme.IconPrefix) fa-check-circle" style="margin-right: 0.7em"> Complete</i></button>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="panel-container show">
+                                            <div class="panel-content">
+                                                <div class="col-md-12 table-responsive-md">
+                                                    <table id="invoiceRunDetailTable" class="table table-bordered table-hover table-striped w-100">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Invoice Number</th>
+                                                            <th>Account Number</th>
+                                                            <th>Account Name</th>
+                                                            <th>Total Excl. VAT</th>
+                                                            <th>VAT</th>
+                                                            <th>Total Incl VAT</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach (var invoice in Model.Invoices)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @if (Model.Complete)
+                                                                    {
+                                                                        <i class="@(Settings.Theme.IconPrefix) fa-lock"></i>
+                                                                    }
+                                                                    <a asp-controller="Invoice" asp-action="Preview" asp-route-id="@invoice.Id" asp-route-returnUrl="@Url.Action("Index", "Invoice")">
+                                                                        @invoice.InvoiceNumber
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    @invoice.AccountNumber
+                                                                </td>
+                                                                <td>
+                                                                    @invoice.AccountName
+                                                                </td>
+                                                                <td>
+                                                                    @invoice.ExcludingVatTotal
+                                                                </td>
+                                                                <td>
+                                                                    @invoice.VatAmount
+                                                                </td>
+                                                                <td>
+                                                                    @invoice.IncludingVatTotal
+                                                                </td>
+                                                                <td>
+                                                                    <a asp-controller="Invoice" asp-action="GetInvoiceReport" asp-route-id="@invoice.Id" asp-route-returnUrl="@Url.Action("Index", "Invoice")">
+                                                                        <i class="@(Settings.Theme.IconPrefix) fa-print"></i> View
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="form-group">
+                                <a class="btn btn-success float-right" asp-controller="Home" asp-action="Index"><i class="fal fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                            </div><br /><br />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            siteJs.initializeDataTable('#invoiceRunDetailTable');
+
+        });
+    </script>
+}

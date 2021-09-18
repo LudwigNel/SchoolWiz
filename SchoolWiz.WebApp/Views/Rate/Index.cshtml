@@ -1,0 +1,97 @@
+﻿@model IEnumerable<SchoolWiz.WebApp.Models.Rate.RateIndexViewModel>
+
+@{
+    ViewData["Title"] = "Rate";
+    ViewData["PageName"] = "rate_index";
+    ViewData["Category1"] = "Billing";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-tags'></i> Rate List</sup>";
+    ViewData["PageDescription"] = "Rates are the fees charged to accounts.";
+}
+
+@{ ViewBag.Title = "Rate";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>View Account Statuses</h2>
+                <div class="panel-toolbar">
+                    <a class="btn btn-sm btn-outline-success float-md-right" asp-controller="Rate" asp-action="Create" asp-route-returnUrl="@Url.Action("Index", "Rate")"> New Rate</a>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="col-md-12 table-responsive-md">
+                        <table id="rateIndexTable" class="table table-bordered table-hover table-striped w-100">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Valid From</th>
+                                    <th>Valid To</th>
+                                    <th>Value</th>
+                                    <th>InActive</th>
+                                    <th class="text-warning">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var rate in Model)
+                                {
+                                <tr>
+                                    <td>
+                                        <a asp-controller="Rate" asp-action="Edit" asp-route-id="@rate.Id" asp-route-returnUrl="@Url.Action("Index", "Rate")">
+                                            @rate.Description
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @rate.ValidFrom
+                                    </td>
+                                    <td>
+                                        @rate.ValidTo
+                                    </td>
+                                    <td>
+                                        @rate.Value
+                                    </td>
+                                    <td>
+                                        @rate.InActive
+                                    </td>
+                                    <td>
+                                        <a class="text-primary" asp-action="Edit" asp-route-id="@rate.Id">
+                                            <i class="@(Settings.Theme.IconPrefix) fa-edit"></i> Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            siteJs.initializeDataTable('#rateIndexTable');
+        });
+    </script>
+}

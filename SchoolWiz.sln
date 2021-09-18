@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolWiz.Entity", "SchoolPeo.Entity\SchoolWiz.Entity.csproj", "{FB9CD079-952F-4BF7-8C99-BC437C511032}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolWiz.Persistence", "SchoolPro.Persistence\SchoolWiz.Persistence.csproj", "{23791D81-AC29-43D9-A36D-77B6A1A84DBF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolWiz.Services", "SchoolWiz.Services\SchoolWiz.Services.csproj", "{04E05F7A-6B20-4BA2-8DC3-D5DE2E6F9697}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolWiz.WebApp", "SchoolWiz.WebApp\SchoolWiz.WebApp.csproj", "{0704122D-7291-4218-B99F-F13171352B18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolWiz.Common", "SchoolWiz.Common\SchoolWiz.Common.csproj", "{BCAD5CFD-5E7A-45FA-A8D5-44BF8783DCBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB9CD079-952F-4BF7-8C99-BC437C511032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9CD079-952F-4BF7-8C99-BC437C511032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9CD079-952F-4BF7-8C99-BC437C511032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9CD079-952F-4BF7-8C99-BC437C511032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23791D81-AC29-43D9-A36D-77B6A1A84DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23791D81-AC29-43D9-A36D-77B6A1A84DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23791D81-AC29-43D9-A36D-77B6A1A84DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23791D81-AC29-43D9-A36D-77B6A1A84DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04E05F7A-6B20-4BA2-8DC3-D5DE2E6F9697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E05F7A-6B20-4BA2-8DC3-D5DE2E6F9697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E05F7A-6B20-4BA2-8DC3-D5DE2E6F9697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E05F7A-6B20-4BA2-8DC3-D5DE2E6F9697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0704122D-7291-4218-B99F-F13171352B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0704122D-7291-4218-B99F-F13171352B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0704122D-7291-4218-B99F-F13171352B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0704122D-7291-4218-B99F-F13171352B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCAD5CFD-5E7A-45FA-A8D5-44BF8783DCBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCAD5CFD-5E7A-45FA-A8D5-44BF8783DCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCAD5CFD-5E7A-45FA-A8D5-44BF8783DCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCAD5CFD-5E7A-45FA-A8D5-44BF8783DCBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F349B33-3D02-404E-8A56-BCA1D91CBEAE}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://nelludwig.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SchoolPeo.Entity\\SchoolWiz.Entity.csproj
+		SccProjectName1 = SchoolPeo.Entity
+		SccLocalPath1 = SchoolPeo.Entity
+		SccProjectUniqueName2 = SchoolPro.Persistence\\SchoolWiz.Persistence.csproj
+		SccProjectName2 = SchoolPro.Persistence
+		SccLocalPath2 = SchoolPro.Persistence
+		SccProjectUniqueName3 = SchoolWiz.Services\\SchoolWiz.Services.csproj
+		SccProjectName3 = SchoolWiz.Services
+		SccLocalPath3 = SchoolWiz.Services
+		SccProjectUniqueName4 = SchoolWiz.WebApp\\SchoolWiz.WebApp.csproj
+		SccProjectName4 = SchoolWiz.WebApp
+		SccLocalPath4 = SchoolWiz.WebApp
+		SccProjectUniqueName5 = SchoolWiz.Common\\SchoolWiz.Common.csproj
+		SccProjectName5 = SchoolWiz.Common
+		SccLocalPath5 = SchoolWiz.Common
+	EndGlobalSection
+EndGlobal

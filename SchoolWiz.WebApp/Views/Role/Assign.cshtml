@@ -1,0 +1,92 @@
+﻿@model SchoolWiz.WebApp.Models.Role.AssignRoleViewModel
+
+@{
+    ViewData["Title"] = "User Roles";
+    ViewData["PageName"] = "assign_role_index";
+    ViewData["Category1"] = "Security";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-cogs'></i> Assign User Roles</sup>";
+    ViewData["PageDescription"] = "Select which roles a user should have.";
+    var returnUrl = @Context.Request.Query["returnurl"];
+}
+
+@{ ViewBag.Title = "Assign Roles";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/fa-brands.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/formplugins/select2/select2.bundle.css">
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    Roles gives the user it is assigned to access to certain parts of the application
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Assign user roles</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form asp-action="Assign" asp-route-returnurl="@returnUrl">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="UserId" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="UserName" class="form-text"></label>
+                                <input class="form-control" disabled asp-for="UserName" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="UserName" class="form-text"></label>
+                                <select class="select2 form-control" multiple="multiple" id="assignUserRoleRoleSelect" asp-for="SelectedRoles" asp-items="@Model.RoleList"></select>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@(Settings.Theme.IconPrefix) fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" href="@ViewBag.returnUrl"><i class="@(Settings.Theme.IconPrefix) fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/formplugins/select2/select2.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            $(function () {
+                $("#assignUserRoleRoleSelect").select2({
+                    placeholder: "Select Roles"
+                });
+            });
+        });
+    </script>
+}

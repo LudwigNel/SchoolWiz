@@ -1,0 +1,74 @@
+﻿@model SchoolWiz.Web.Models.AccountType.AccountTypeEditViewModel
+
+@{ ViewBag.Title = "Edit Account Type";}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="AccountType" asp-action="Index">Account Type List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Account Type</li>
+                </ol>
+            </nav><br /><br />
+            <form method="post" enctype="multipart/form-data" asp-controller="AccountType" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-1">
+                        <label asp-for="Name" class="form-text"></label>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <input class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-1">
+                        <label asp-for="CreatedBy" class=" font-weight-normal form-text"></label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input class="form-control" asp-for="CreatedBy" readonly />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="form-group col-md-1">
+                        <label asp-for="CreatedDate" class="font-weight-normal form-text"></label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input class="form-control" asp-for="CreatedDate" readonly />
+                    </div>
+                </div>
+                @if (Model.ModifiedById != null)
+                {
+                    <div class="form-row">
+                        <div class="form-group col-md-1">
+                            <label asp-for="ModifiedBy" class="font-weight-normal form-text"></label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input class="form-control" asp-for="ModifiedBy" readonly />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="form-group col-md-1">
+                            <label asp-for="ModifiedDate" class="font-weight-normal form-text"></label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input class="form-control" asp-for="ModifiedDate" readonly />
+                        </div>
+                    </div>
+                }
+                <div class="form-row">
+                    <div class="col-md-1"></div>
+                    <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                        <input type="checkbox" class="custom-control-input" asp-for="Inactive">
+                        <label class="custom-control-label" asp-for="Inactive"></label>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary float-left"><i class="fas fa-save"></i> Save</button>
+                    <a class="btn btn-success float-right" asp-controller="AccountType" asp-action="Index"><i class="fas fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                </div><br /><br />
+            </form>
+        </div>
+    </div>
+</div>

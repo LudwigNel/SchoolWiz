@@ -1,0 +1,23 @@
+@using Microsoft.AspNetCore.Identity
+@using SchoolWiz.Entity
+@using System.Security.Claims
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = UserManager.Users.FirstOrDefault(u => u.Id == Guid.Parse(userId));
+}
+
+<div class="info-card">
+    <div class="info-card-text">
+        <a href="#" class="d-flex align-items-center text-white">
+            <span class="text-truncate text-truncate-sm d-inline-block">
+                @(user.FirstName.Trim() + " " + user.LastName.Trim())
+            </span>
+        </a>
+    </div>
+    <img src="~/img/card-backgrounds/card-info.png" class="cover" alt="cover">
+    <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">
+        <i class="@(Settings.Theme.IconPrefix) fa-angle-down"></i>
+    </a>
+</div>

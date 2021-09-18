@@ -1,0 +1,88 @@
+﻿@model SchoolWiz.WebApp.Models.GuardianType.GuardianTypeCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    ViewData["PageName"] = "guardian_type_index";
+    ViewData["Category1"] = "Setup";
+    ViewData["Category2"] = "Guardian Type";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-cogs'></i> Create a new Guardian Type</sup>";
+    ViewData["PageDescription"] = "Guardian types identify a student's guardian type.";
+}
+
+@{ ViewBag.Title = "Create";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    Guardian Types help identify the relationship between the student and guardian.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Create a new Guardian Type</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form method="post" enctype="multipart/form-data" asp-controller="GuardianType" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label asp-for="Name" class="form-text"></label>
+                                <input class="form-control" asp-for="Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-row">
+                            <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                <input type="checkbox" class="custom-control-input" asp-for="Inactive">
+                                <label class="custom-control-label" asp-for="Inactive"></label>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@(Settings.Theme.IconPrefix) fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" asp-controller="GuardianType" asp-action="Index"><i class="@(Settings.Theme.IconPrefix) fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+        });
+    </script>
+}

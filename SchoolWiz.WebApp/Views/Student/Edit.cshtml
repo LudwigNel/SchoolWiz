@@ -1,0 +1,249 @@
+﻿@model SchoolWiz.Common.Models.Student.StudentEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["PageName"] = "student_index";
+    ViewData["Category1"] = "General";
+    ViewData["Category2"] = "Students";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-user-graduate'></i> Edit Student</sup>";
+}
+
+@{ ViewBag.Title = "Edit";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Edit the selected Student</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="panel-tag">
+                        <p>
+                            Capture as much student information as possible.
+                            <br />
+                            The most important and required information is:.
+                            <br />
+                            <strong>First Name</strong>
+                            <br />
+                            <strong>Last Name</strong>
+                            <br />
+                            <strong>Identity Number</strong>
+                            <br />
+                            <strong>Age</strong>
+                        </p>
+                    </div>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#student_tab" role="tab">Student</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#guardians_tab" role="tab">Guardians</a></li>
+                    </ul>
+
+                    <form method="post" enctype="multipart/form-data" asp-controller="Student" asp-action="Edit">
+                        <div class="tab-content p-3">
+                            <div class="tab-pane fade show active" id="student_tab" role="tabpanel">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="Id" hidden />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <strong><label asp-for="FirstName" class="form-text note-icon-bold"></label></strong>
+                                        <input class="form-control" asp-for="FirstName" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="MiddleName" class="form-text"></label>
+                                        <input class="form-control" asp-for="MiddleName" />
+                                        <span asp-validation-for="MiddleName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <strong><label asp-for="LastName" class="form-text note-icon-bold"></label></strong>
+                                        <input class="form-control" asp-for="LastName" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <strong><label asp-for="IdentityNumber" class="form-text note-icon-bold"></label></strong>
+                                        <input id="studentEditIdentityNumber" class="form-control" asp-for="IdentityNumber" />
+                                        <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <strong><label asp-for="Age" class="form-text note-icon-bold"></label></strong>
+                                        <input class="form-control" asp-for="Age" />
+                                        <span asp-validation-for="Age" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label font-weight-bold" asp-for="DateOfBirth"></label>
+                                        <input id="studentEditDateOfBirth" type="text" class="form-control" asp-for="DateOfBirth" readonly="readonly" />
+                                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                        <div id="id_results"></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="MobileNumber" class="form-text"></label>
+                                        <input class="form-control" asp-for="MobileNumber" />
+                                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="Email" class="form-text"></label>
+                                        <input class="form-control" asp-for="Email" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label font-weight-bold" asp-for="DoctorName"></label>
+                                        <input class="form-control" asp-for="DoctorName" />
+                                        <span asp-validation-for="DoctorName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label font-weight-bold" asp-for="DoctorContactNumber"></label>
+                                        <input class="form-control" asp-for="DoctorContactNumber" />
+                                        <span asp-validation-for="DoctorContactNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                            <input type="checkbox" class="custom-control-input" asp-for="UnderSupervisedMedication">
+                                            <label class="custom-control-label" asp-for="UnderSupervisedMedication"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                            <input type="checkbox" class="custom-control-input" asp-for="MedicationCausesDrowsiness">
+                                            <label class="custom-control-label" asp-for="MedicationCausesDrowsiness"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <label asp-for="MedicalConditions" class="form-text"></label>
+                                    <textarea class="form-control" asp-for="MedicalConditions"></textarea>
+                                    <span asp-validation-for="MedicalConditions" class="text-danger"></span>
+                                </div>
+                                <br />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CreatedBy" clss="form-text"></label>
+                                        <input class="form-control" asp-for="CreatedBy" readonly="readonly" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CreatedDate" clss="form-text"></label>
+                                        <input class="form-control" asp-for="CreatedDate" readonly="readonly" />
+                                    </div>
+                                </div>
+                                @if (Model.ModifiedById != null)
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="ModifiedBy" clss="form-text"></label>
+                                            <input class="form-control" asp-for="ModifiedBy" readonly="readonly" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="ModifiedDate" clss="form-text"></label>
+                                            <input class="form-control" asp-for="ModifiedDate" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-row">
+                                    <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                        <input type="checkbox" class="custom-control-input" asp-for="Inactive">
+                                        <label class="custom-control-label" asp-for="Inactive"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="guardians_tab" role="tabpanel">
+                                <div class="col-md-12 table-responsive-md">
+                                    <table id="studentEditGuardiansTable" class="table table-bordered table-hover table-striped w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Guardian Type</th>
+                                                <th>InActive</th>
+                                                <th class="text-warning">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var guardian in Model.Guardians)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <a asp-controller="Guardian" asp-action="Edit" asp-route-id="@guardian.Id" asp-route-returnUrl="@Url.Action("Edit", "Student", new { id = @Model.Id })">
+                                                            @if (guardian.MainContact)
+                                                            {
+                                                                <i class="@(Settings.Theme.IconPrefix) fa-star" data-toggle="tooltip" title="Primary contact"> @guardian.Name</i>
+                                                            }
+                                                            else
+                                                            {
+                                                                @guardian.Name
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        @guardian.GuardianType
+                                                    </td>
+                                                    <td>
+                                                        @guardian.InActive
+                                                    </td>
+                                                    <td>
+                                                        <a class="text-primary" asp-controller="Guardian" asp-action="Edit" asp-route-id="@guardian.Id" asp-route-returnUrl="@Url.Action("Edit", "Student", new { id = @Model.Id })">
+                                                            <i class="@(Settings.Theme.IconPrefix) fa-edit"></i> Edit
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@(Settings.Theme.IconPrefix) fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" asp-controller="Student" asp-action="Index"><i class="@(Settings.Theme.IconPrefix) fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script src="~/js/rsa_id_validator/jquery.rsa_id_validator.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            siteJs.initializeDataTable('#studentEditGuardiansTable');
+
+            $('#studentEditIdentityNumber').rsa_id_validator({
+                displayDate_id: "studentEditDateOfBirth",
+                displayDate: [true, ""],
+                displayValid: [false,"",""],
+                displayAge: [false,""],
+                displayGender: [false,"",""],
+                displayCitizenship: [false,"",""]
+            });
+        });
+    </script>
+}

@@ -1,0 +1,308 @@
+﻿@model SchoolWiz.Common.Models.Account.AccountEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["PageName"] = "account_index";
+    ViewData["Category1"] = "Setup";
+    ViewData["Category2"] = "Account";
+    ViewData["Heading"] = "<i class='subheader-icon fal fa-yable'></i> Account Details</sup>";
+}
+
+@{ ViewBag.Title = "Edit";}
+
+@section HeadBlock {
+    <link rel="stylesheet" media="screen, print" href="~/css/datagrid/datatables/datatables.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/notifications/toastr/toastr.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/formplugins/select2/select2.bundle.css">
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
+
+<div class="alert alert-primary">
+    <div class="d-flex flex-start w-100">
+        <div class="mr-2 hidden-md-down">
+            <span class="icon-stack icon-stack-lg">
+                <i class="base base-2 icon-stack-3x opacity-100 color-primary-500"></i>
+                <i class="base base-2 icon-stack-2x opacity-100 color-primary-300"></i>
+                <i class="@(Settings.Theme.IconPrefix) fa-info icon-stack-1x opacity-100 color-white"></i>
+            </span>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="flex-fill">
+                <span class="h5">About</span>
+                <p>
+                    View account details such as the account balances.
+                    <br />
+                    Your can change the account status and account type.
+                    <br />
+                    You can also view the account rates applied to the account. Ad add or remove them from here.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="panel">
+            <div class="panel-hdr">
+                <h2>Edit the selected Account</h2>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#account_detail_tab1" role="tab">Account</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#account_rates_tab" role="tab">Rates</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#account_invoices_tab" role="tab">Invoices</a></li>
+                    </ul>
+                    <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="Edit" asp-route-returnUrl="@Url.Action("Index", "Account")">
+                        <div class="tab-content p-3">
+                            <div class="tab-pane fade show active" id="account_detail_tab1" role="tabpanel">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="Id" hidden />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="AccountNumber" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="AccountNumber" readonly="readonly" />
+                                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="AccountName" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="AccountName" readonly="readonly" />
+                                        <span asp-validation-for="AccountName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CurrentPeriod" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="CurrentPeriod" readonly="readonly" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="HundredTwentyDays" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="HundredTwentyDays" readonly="readonly" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="NinetyDays" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="NinetyDays" readonly="readonly" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="SixtyDays" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="SixtyDays" readonly="readonly" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="ThirtyDays" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="ThirtyDays" readonly="readonly" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="Current" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="Current" readonly="readonly" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="Total" class="form-text font-weight-bold"></label>
+                                        <input class="form-control" asp-for="Total" readonly="readonly" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6" style="margin-bottom: 1.5rem !important;">
+                                        <label class="form-label font-weight-bold" asp-for="AccountStatusId"></label>
+                                        <select id="accountEditAccountStatusList" class="select2 form-control w-100" asp-for="AccountStatusId" asp-items="@Model.AccountStatusList">
+                                            <option>-- Select an Account Status --</option>
+                                        </select>
+                                        <span asp-validation-for="AccountStatusId" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-md-6" style="margin-bottom: 1.5rem !important;">
+                                        <label class="form-label font-weight-bold" asp-for="AccountTypeId"></label>
+                                        <select id="accountEditAccountTypeList" class="select2 form-control w-100" asp-for="AccountTypeId" asp-items="@Model.AccountTypeList">
+                                            <option>-- Select a Billing Cycle --</option>
+                                        </select>
+                                        <span asp-validation-for="AccountTypeId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CreatedBy" class=" font-weight-normal form-text"></label>
+                                        <input class="form-control" asp-for="CreatedBy" readonly />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CreatedDate" class="font-weight-normal form-text"></label>
+                                        <input class="form-control" asp-for="CreatedDate" readonly />
+                                    </div>
+                                </div>
+                                @if (Model.ModifiedById != null)
+                                {
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="ModifiedBy" class="font-weight-normal form-text"></label>
+                                            <input class="form-control" asp-for="ModifiedBy" readonly />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="ModifiedDate" class="font-weight-normal form-text"></label>
+                                            <input class="form-control" asp-for="ModifiedDate" readonly />
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-row">
+                                    <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                                        <input type="checkbox" class="custom-control-input" asp-for="Inactive">
+                                        <label class="custom-control-label" asp-for="Inactive"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account_rates_tab" role="tabpanel">
+                                <div class="col-md-12 table-responsive-md">
+                                    <div class="panel">
+                                        <div class="panel-hdr">
+                                            <h2></h2>
+                                            <div class="panel-toolbar">
+                                                <a class="btn btn-sm btn-outline-success float-md-right" asp-controller="AccountRate" asp-action="AddAccountRates" asp-route-accountId="@Model.Id" asp-route-returnUrl="@Url.Action("Edit", "Account", new { id = Model.Id })"> Edit Account Rates</a>
+                                            </div>
+                                        </div>
+                                        <div class="panel-container show">
+                                            <div class="panel-content">
+                                                <div class="col-md-12 table-responsive-md">
+                                                    <table id="accountRateTable" class="table table-bordered table-hover table-striped w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Rate</th>
+                                                                <th>Fee</th>
+                                                                <th>Discount %</th>
+                                                                <th>Discount Amount</th>
+                                                                <th>InActive</th>
+                                                                <th class="text-warning">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var rate in Model.AccountRates)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        <a asp-controller="AccountRate" asp-action="Edit" asp-route-id="@rate.Id" asp-route-returnUrl="@Url.Action("Edit", "Account", new {id = @Model.Id})">
+                                                                            @rate.Description
+                                                                        </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        @rate.Fee
+                                                                    </td>
+                                                                    <td>
+                                                                        @rate.DiscountPercentage
+                                                                    </td>
+                                                                    <td>
+                                                                        @rate.DiscountAmount
+                                                                    </td>
+                                                                    <td>
+                                                                        @rate.InActive
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="text-primary" asp-controller="AccountRate" asp-action="Edit" asp-route-id="@rate.Id" asp-route-returnUrl="@Url.Action("Edit", "Account", new {id = @Model.Id})">
+                                                                            <i class="@(Settings.Theme.IconPrefix) fa-edit"></i> Edit
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account_invoices_tab" role="tabpanel">
+                                <div class="col-md-12 table-responsive-md">
+                                    <div class="panel">
+                                        <div class="panel-hdr">
+                                            <h2></h2>
+                                            <div class="panel-toolbar">
+                                            </div>
+                                        </div>
+                                        <div class="panel-container show">
+                                            <div class="panel-content">
+                                                <div class="col-md-12 table-responsive-md">
+                                                    <table id="accountInvoicesTable" class="table table-bordered table-hover table-striped w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Invoice Number</th>
+                                                                <th>Period</th>
+                                                                <th>Total Excl. VAT</th>
+                                                                <th>VAT Amount</th>
+                                                                <th>Total Incl. VAT</th>
+                                                                <th class="text-warning">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var invoice in Model.Invoices)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        <a asp-controller="Invoice" asp-action="Edit" asp-route-id="@invoice.Id" asp-route-returnUrl="@Url.Action("Edit", "Account", new {id = @Model.Id})">
+                                                                            @invoice.InvoiceNumber
+                                                                        </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        @invoice.Period
+                                                                    </td>
+                                                                    <td>
+                                                                        @invoice.TotalExcludingVat
+                                                                    </td>
+                                                                    <td>
+                                                                        @invoice.TotalVat
+                                                                    </td>
+                                                                    <td>
+                                                                        @invoice.TotalIncludingVat
+                                                                    </td>
+                                                                    <td>
+                                                                        <a asp-controller="Invoice" asp-action="GetInvoiceReport" asp-route-invoiceId="@invoice.Id" asp-route-returnUrl="@Url.Action("Index", "Invoice")" target="_blank">
+                                                                            <i class="@(Settings.Theme.IconPrefix) fa-print"></i> View
+                                                                        </a>
+                                                                        <a asp-controller="Invoice" asp-action="GenerateInvoicePdf" asp-route-invoiceId="@invoice.Id" asp-route-returnUrl="@Url.Action("Index", "Invoice")">
+                                                                            <i class="@(Settings.Theme.IconPrefix) fa-file"></i> PDF
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left"><i class="@(Settings.Theme.IconPrefix) fa-save"></i> Save</button>
+                            <a class="btn btn-success float-right" href="@ViewBag.returnUrl"><i class="fal fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                        </div><br /><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptsBlock {
+    <script src="~/js/notifications/toastr/toastr.js"></script>
+    <script src="~/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script src="~/js/formplugins/select2/select2.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var displayToast = '@TempData["DisplayToast"]';
+            if (displayToast === 'True' || displayToast === 'true') {
+                var toastType = '@TempData["ToastType"]';
+                var toastTitle = '@TempData["ToastTitle"]';
+                var toastMessage = '@TempData["ToastMessage"]';
+
+                toastJs.showToastMessage(toastType, toastTitle, toastMessage);
+            }
+
+            $('#accountEditAccountStatusList').select2();
+            $('#accountEditAccountTypeList').select2();
+
+            siteJs.initializeDataTable('#accountRateTable');
+            siteJs.initializeDataTable('#accountInvoicesTable');
+        });
+    </script>
+}

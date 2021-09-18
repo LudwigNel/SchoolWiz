@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SchoolWiz.Web.Models.Role.RoleIndexViewModel>
+
+@{
+    ViewBag.Title = "User Role List";
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User Role List</li>
+                    </ol>
+                </nav><br /><br />
+                <div class="row">
+                    <div class="col-md-12 table-responsive-md">
+                        <a class="btn btn-sm btn-outline-success float-md-right" asp-controller="Role" asp-action="Create"> New User Role</a>
+                        <table id="countryTable" class="table table-striped">
+                            <thead>
+                                <tr class="d-flex">
+                                    <th class="col-4">Name</th>
+                                    <th class="col-4">Inactive</th>
+                                    <th class="text-warning col-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in Model)
+                                {
+                                    <tr class="d-flex">
+                                        <td class="col-4">
+                                            <a asp-controller="Role" asp-action="Edit" asp-route-id="@role.Id">
+                                                @role.Name
+                                            </a>
+                                        </td>
+                                        <td class="col-4">
+                                            @role.InActive
+                                        </td>
+                                        <td class="col-4">
+                                            <a class="text-primary" asp-action="Edit" asp-route-id="@role.Id">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a class="text-danger" asp-action="Delete" asp-route-id="@role.Id">
+                                                <i class="far fa-trash-alt"></i> Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

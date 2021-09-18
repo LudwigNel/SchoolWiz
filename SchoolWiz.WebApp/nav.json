@@ -1,0 +1,235 @@
+{
+  "version": "4",
+  "lists": [
+    {
+      "title": "Menu",
+      "roles": []
+    },
+    {
+      "title": "Welcome",
+      "href": "aspnetcore_welcome.html",
+      "icon": "fal fa-graduation-cap",
+      "roles": []
+    },
+    {
+      "title": "School Maintenance",
+      "href": "school_maintenance.html",
+      "route": "School/Index",
+      "controller": "School",
+      "action": "Index",
+      "icon": "fal fa-school",
+      "roles": []
+    },
+    {
+      "title": "Student Registration",
+      "href": "student_registration.html",
+      "route": "StudentRegistration/Index",
+      "controller": "StudentRegistration",
+      "icon": "fal fa-user-plus",
+      "roles": []
+    },
+    {
+      "title": "General",
+      "icon": "fal fa-school",
+      "roles": [ "Teacher", "Administrator" ],
+      "items": [
+        {
+          "title": "Guardians",
+          "href": "guardian_index.html",
+          "route": "Guardian/Index",
+          "controller": "Guardian",
+          "action": "Index",
+          "roles": [ "Teacher", "Administrator" ]
+        },
+        {
+          "title": "Students",
+          "href": "student_index.html",
+          "route": "Student/Index",
+          "controller": "Student",
+          "action": "Index",
+          "roles": [ "Teacher", "Administrator" ]
+        }
+      ]
+    },
+    {
+      "title": "Billing",
+      "icon": "fal fa-file-invoice",
+      "roles": [ "Billing", "Administrator" ],
+      "items": [
+        {
+          "title": "Accounts",
+          "href": "account_index.html",
+          "route": "Account/Index",
+          "controller": "Account",
+          "action": "Index",
+          "roles": [ "Billing", "Administrator" ]
+        },
+        {
+          "title": "Invoicing",
+          "href": "invoice_index.html",
+          "route": "Invoice/Index",
+          "controller": "Invoice",
+          "action": "Index",
+          "roles": [ "Billing", "Administrator" ]
+        },
+        {
+          "title": "Rates",
+          "href": "rate_index.html",
+          "route": "Rate/Index",
+          "controller": "Rate",
+          "action": "Index",
+          "roles": [ "Billing", "Administrator" ]
+        }
+      ]
+    },
+    {
+      "title": "Security",
+      "icon": "fal fa-lock",
+      "roles": [ "Administrator" ],
+      "items": [
+        {
+          "title": "Roles",
+          "href": "roles_index.html",
+          "route": "Role/Index",
+          "controller": "Role",
+          "action": "Index",
+          "roles": [ "Administrator" ]
+        },
+        {
+          "title": "Users",
+          "href": "user_index.html",
+          "route": "User/Index",
+          "controller": "User",
+          "action": "Index",
+          "roles": [ "Administrator" ]
+        }
+      ]
+    },
+    {
+      "title": "Setup",
+      "icon": "fal fa-folder-open",
+      "roles": [],
+      "items": [
+        {
+          "title": "Account Status",
+          "href": "account_status_index.html",
+          "route": "AccountStatus/Index",
+          "controller": "AccountStatus",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Account Type",
+          "href": "account_type_index.html",
+          "route": "AccountType/Index",
+          "controller": "AccountType",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Address Type",
+          "href": "address_type_index.html",
+          "route": "AddressType/Index",
+          "controller": "AddressType",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Cities",
+          "href": "city_index.html",
+          "route": "City/Index",
+          "controller": "City",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Countries",
+          "href": "country_index.html",
+          "route": "Country/Index",
+          "controller": "Country",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Grades",
+          "href": "grade_index.html",
+          "route": "Grade/Index",
+          "controller": "Grade",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Guardian Types",
+          "href": "guardian_type_index.html",
+          "route": "GuardianType/Index",
+          "controller": "GuardianType",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Provinces",
+          "href": "province_index.html",
+          "route": "Province/Index",
+          "controller": "Province",
+          "action": "Index",
+          "roles": []
+        },
+        {
+          "title": "Vat",
+          "href": "vat_index.html",
+          "route": "Vat/Index",
+          "controller": "Vat",
+          "action": "Index",
+          "roles": []
+        }
+      ]
+    },
+    {
+      "title": "Documentation",
+      "icon": "fal fa-book",
+      "roles": [],
+      "items": [
+        {
+          "title": "Introduction",
+          "href": "documentation_introduction.html",
+          "roles": []
+        },
+        {
+          "title": "Getting Started",
+          "href": "documentation_getting_started.html",
+          "roles": []
+        },
+        {
+          "title": "Site Structure",
+          "href": "documentation_site_structure.html",
+          "roles": []
+        },
+        {
+          "title": "Solution Architecture",
+          "href": "documentation_solution_architecture.html",
+          "roles": []
+        },
+        {
+          "title": "Customizations",
+          "href": "documentation_customizations.html",
+          "roles": []
+        },
+        {
+          "title": "Howto Contribute",
+          "href": "documentation_howto_contribute.html",
+          "roles": []
+        },
+        {
+          "title": "Licensing Information",
+          "href": "documentation_licensing_information.html",
+          "roles": []
+        },
+        {
+          "title": "Changelog",
+          "href": "documentation_changelog.html",
+          "roles": []
+        }
+      ]
+    }
+  ]
+}

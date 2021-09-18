@@ -1,0 +1,86 @@
+﻿@model SchoolWiz.Web.Models.School.SchoolIndexViewModel
+
+@{ ViewBag.Title = "SchoolDetails";}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">School Details</li>
+                </ol>
+            </nav><br /><br />
+            <form method="post" enctype="multipart/form-data" asp-controller="School" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <input class="form-control" asp-for="Name" placeholder="School Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <div class="btn btn-primary btn-icon-text">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <input asp-for="ImageUrl" type="file" value="upload" />
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" form-group col-md-2">
+                        <label asp-for="RegistrationNo" class="font-weight-normal form-text"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input class="form-control" asp-for="RegistrationNo" />
+                        <span asp-validation-for="RegistrationNo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class=" form-group col-md-2">
+                        <label asp-for="VatNo" class="font-weight-normal form-text"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input class="form-control" asp-for="VatNo" />
+                        <span asp-validation-for="VatNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" form-group col-md-2">
+                        <label asp-for="ContactPerson" class="form-text"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input class="form-control" asp-for="ContactPerson" />
+                        <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class=" form-group col-md-2">
+                        <label asp-for="PhoneNumber" class="form-text"></label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input class="form-control" asp-for="PhoneNumber" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="Email" class="form-text"></label>
+                    </div>
+                    <div class="form-group col-md-10">
+                        <input class="form-control" asp-for="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox" style="margin-left: 0.7em;">
+                        <input type="checkbox" class="custom-control-input" asp-for="IsDeleted">
+                        <label class="custom-control-label" asp-for="IsDeleted"></label>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary float-left"><i class="fas fa-save"></i> Save</button>
+                    <a class="btn btn-success float-right" asp-controller="Home" asp-action="Index"><i class="fas fa-caret-square-left" style="margin-right: 0.7em"> Back</i></a>
+                </div><br /><br />
+            </form>
+        </div>
+    </div>
+</div>
